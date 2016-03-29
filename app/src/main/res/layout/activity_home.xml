@@ -1,0 +1,236 @@
+<com.bluemor.reddotface.view.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icon_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="30dp"
+        android:paddingLeft="30dp"
+        android:paddingTop="50dp">
+
+        <LinearLayout
+            android:id="@+id/ll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/iv_drag_avatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:scaleType="fitCenter"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="XiongJiaChen"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="1127354683@qq.com"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+        <ListView
+            android:id="@+id/lv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_mail"
+            android:layout_below="@id/ll1"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="40dp"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <com.bluemor.reddotface.view.MyRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eeeeee">
+
+        <RelativeLayout
+            android:id="@+id/base_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/qq_blue">
+
+            <RelativeLayout
+                android:id="@+id/action_bar_relativelayout_left"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="0dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="fitCenter"
+                    fresco:roundAsCircle="true" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/txt_actionbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/font_white"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:id="@+id/action_bar_relativelayout_right_image"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:id="@+id/img_actionbar_righticon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/action_bar_relativelayout_right_text"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:id="@+id/textview_actionbar_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tab"
+            android:layout_below="@+id/base_title"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background_white">
+
+            <RelativeLayout
+                android:id="@id/tab_first"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:id="@+id/img_tab_one"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/iconfont_chat" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_tab_one"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="消息" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@id/tab_second"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:id="@+id/img_tab_two"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/iconfont_friend" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_tab_two"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="联系人" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@id/tab_third"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:id="@+id/img_tab_three"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/dongtai" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_tab_three"
+
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="动态" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.bluemor.reddotface.view.MyRelativeLayout>
+</com.bluemor.reddotface.view.DragLayout>

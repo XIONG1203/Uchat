@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="txt_single_choose" type="id"/>
+    <item name="fragment_container" type="id"/>
+    <item name="tab_first" type="id"></item>
+    <item name="tab_second" type="id"></item>
+    <item name="tab_third" type="id"></item>
+    <item name="txt_cancel" type="id"></item>
+    <item name="txt_ensure" type="id"></item>
+</resources>

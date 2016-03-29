@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFF</color>
+    <color name="gray">#A2A2A2</color>
+    <color name="action_bar_background">#8ecbd7</color>
+
+    <color name="background_gray">#f7f7f7</color>
+    <color name="background_white">#ffffff</color>
+    <color name="background_blue">#8ecbd7</color>
+    <color name="background_blue_deep">#68B9CA</color>
+    <color name="background_pink">#FFAFA6</color>
+    <color name="background_pink_deep">#FF6857</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="driver_color">#cbcbcb</color>
+
+    <color name="font_white">#FFFFFF</color>
+    <color name="font_black">#000000</color>
+    <color name="font_lightblack">#363636</color>
+    <color name="font_gray">#e8e8e8</color>
+    <color name="font_blue">#2e7d8c</color>
+    <color name="font_lightred">#ffafa6</color>
+    <color name="font_deepgray">#666666</color>
+
+    <color name="orange">#e1c13a</color>
+
+    <color name="line_color">#e8e8e8</color>
+    <color name="line_color_gray">#BDBDBD</color>
+    <color name="line_color_gray_deep">#999999</color>
+    <color name="line_color_blue">#8ecdb7</color>
+    <color name="line_color_blue_deep">#2E7D8C</color>
+
+    <color name="qq_blue">#1bbbdc</color>
+
+</resources>
