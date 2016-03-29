@@ -74,8 +74,6 @@ public class HomeActivity extends HomeTabActivity {
         int resIdTextColor = R.color.font_white;
         setTitleTextColor(resIdTextColor);
         imageViewAvatar.setVisibility(View.VISIBLE);
-        imgRightIcon.setVisibility(View.INVISIBLE);
-
         imageViewAvatar.setImageURI(Uri.parse("res:///" + R.drawable.avatar));
         imageViewAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,17 +108,30 @@ public class HomeActivity extends HomeTabActivity {
         switch (currentPosition) {
             case 0:
                 title.setText("消息");
-                tvRight.setText("+");
+                setRightIcon(R.drawable.message_fragment_position_right);
                 break;
             case 1:
                 title.setText("联系人");
-                tvRight.setText("添加");
+                setRightText("添加");
+
                 break;
             case 2:
                 title.setText("动态");
-                tvRight.setText("更多");
+                setRightText("更多");
                 break;
         }
+    }
+
+    private void setRightText(String text) {
+        tvRight.setVisibility(View.VISIBLE);
+        imgRightIcon.setVisibility(View.GONE);
+        tvRight.setText(text);
+    }
+
+    private void setRightIcon(int res) {
+        imgRightIcon.setVisibility(View.VISIBLE);
+        tvRight.setVisibility(View.GONE);
+        imgRightIcon.setImageResource(res);
     }
 
     private void initDrag() {

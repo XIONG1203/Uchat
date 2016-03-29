@@ -1,4 +1,4 @@
-package com.example.xiong.uchat;
+package com.example.xiong.uchat.base;
 
 import android.app.Activity;
 

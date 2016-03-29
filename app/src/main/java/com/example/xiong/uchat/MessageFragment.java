@@ -1,20 +1,23 @@
 package com.example.xiong.uchat;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.os.Handler;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.example.xiong.uchat.adapter.MessageListAdapter;
+import com.example.xiong.uchat.bean.MessageListItemBean;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by xiong on 2016/3/28.
@@ -25,15 +28,17 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private View contentView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ListView mListView;
-    private List<String> mDatas;
-    private ArrayAdapter<String> mAdapter;
+    private MessageListAdapter mMessageListAdapter;
+    private ArrayList<MessageListItemBean> messageListItemBeanArrayList;
+
+    private RelativeLayout relativeLayoutHeader;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
-                    mDatas.addAll(Arrays.asList("Lucene", "Canvas", "Bitmap"));
-                    mAdapter.notifyDataSetChanged();
+                    mMessageListAdapter.addAll(messageListItemBeanArrayList);
+                    mMessageListAdapter.notifyDataSetChanged();
                     mSwipeRefreshLayout.setRefreshing(false);
                     break;
             }
@@ -52,22 +57,48 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init();
+        initListener();
 
     }
 
     private void init() {
-        mDatas = new ArrayList<>();
+        messageListItemBeanArrayList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            MessageListItemBean messageListItemBean = new MessageListItemBean();
+            messageListItemBean.setName("熊嘉琛帅哥___" + i);
+            messageListItemBean.setTempContent("吃了没有" + i * 3);
+            messageListItemBean.setTime("12:1" + i);
+            messageListItemBean.setPath("res:///" + R.drawable.avatar_kin);
+            messageListItemBeanArrayList.add(messageListItemBean);
+        }
+
+        mMessageListAdapter = new MessageListAdapter(getContext(), R.layout.message_list_item);
+        mMessageListAdapter.addAll(messageListItemBeanArrayList);
+
+        relativeLayoutHeader = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.search_input, null);
         mSwipeRefreshLayout = (SwipeRefreshLayout) contentView.findViewById(R.id.swipe_message);
         mListView = (ListView) contentView.findViewById(R.id.listview_message);
-        for (int i = 0; i < 10; i++) {
-            mDatas.add("第" + i + "个");
-        }
-        mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mDatas);
-        mListView.setAdapter(mAdapter);
-
+        mListView.setFadingEdgeLength(0);
+        mListView.addHeaderView(relativeLayoutHeader);
+        mListView.setAdapter(mMessageListAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
+    }
+
+    private void initListener() {
+        relativeLayoutHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "搜索", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getContext(), i + "", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static android.support.v4.app.Fragment newInstance() {

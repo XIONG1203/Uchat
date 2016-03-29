@@ -1,4 +1,4 @@
-package com.example.xiong.uchat;
+package com.example.xiong.uchat.customview;
 
 import android.content.Context;
 import android.graphics.Color;

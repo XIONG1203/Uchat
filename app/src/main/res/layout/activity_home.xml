@@ -132,7 +132,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -153,84 +153,98 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/background_white">
+            android:background="@color/background_white"
+            android:orientation="vertical"
+            android:paddingBottom="3dp">
 
-            <RelativeLayout
-                android:id="@id/tab_first"
-                android:layout_width="0dp"
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/font_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.0">
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/img_tab_one"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/iconfont_chat" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@id/tab_first"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_tab_one"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="2dp"
-                    android:gravity="center"
-                    android:text="消息" />
+                    android:layout_weight="1.0">
+
+                    <ImageView
+                        android:id="@+id/img_tab_one"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:src="@drawable/iconfont_chat" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_tab_one"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:text="消息" />
 
 
-            </RelativeLayout>
+                </RelativeLayout>
 
 
-            <RelativeLayout
-                android:id="@id/tab_second"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.0">
+                <RelativeLayout
+                    android:id="@id/tab_second"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0">
 
-                <ImageView
-                    android:id="@+id/img_tab_two"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/iconfont_friend" />
+                    <ImageView
+                        android:id="@+id/img_tab_two"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:src="@drawable/iconfont_friend" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_tab_two"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:text="联系人" />
-
-
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_tab_two"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="联系人" />
 
 
-            <RelativeLayout
-                android:id="@id/tab_third"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.0">
+                </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/img_tab_three"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/dongtai" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_tab_three"
+                <RelativeLayout
+                    android:id="@id/tab_third"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0">
 
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:text="动态" />
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/img_tab_three"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:src="@drawable/dongtai" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_tab_three"
+
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="动态" />
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </com.bluemor.reddotface.view.MyRelativeLayout>
 </com.bluemor.reddotface.view.DragLayout>

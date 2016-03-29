@@ -1,4 +1,4 @@
-package com.example.xiong.uchat;
+package com.example.xiong.uchat.base;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.xiong.uchat.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
