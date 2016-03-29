@@ -3,6 +3,7 @@ package com.example.xiong.uchat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -16,13 +17,16 @@ import android.widget.Toast;
 
 import com.example.xiong.uchat.adapter.MessageListAdapter;
 import com.example.xiong.uchat.bean.MessageListItemBean;
+import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
+import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
 
 import java.util.ArrayList;
 
 /**
  * Created by xiong on 2016/3/28.
  */
-public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnMenuItemClickListener,
+        OnMenuItemLongClickListener {
 
     private final int REFRESH_COMPLETE = 0x11;
     private View contentView;
@@ -33,6 +37,7 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private RelativeLayout relativeLayoutHeader;
 
+    private DialogFragment mMenuDialogFragment;
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
@@ -58,7 +63,6 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
         super.onViewCreated(view, savedInstanceState);
         init();
         initListener();
-
     }
 
     private void init() {
@@ -108,5 +112,15 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public void onRefresh() {
         mHandler.sendEmptyMessageDelayed(REFRESH_COMPLETE, 2500);
+    }
+
+    @Override
+    public void onMenuItemClick(View clickedView, int position) {
+
+    }
+
+    @Override
+    public void onMenuItemLongClick(View clickedView, int position) {
+
     }
 }

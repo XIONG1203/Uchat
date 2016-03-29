@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/UChat.iml" filepath="$PROJECT_DIR$/UChat.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contextmenu/contextmenu.iml" filepath="$PROJECT_DIR$/contextmenu/contextmenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/draglayoutlib/draglayoutlib.iml" filepath="$PROJECT_DIR$/draglayoutlib/draglayoutlib.iml" />
     </modules>
   </component>

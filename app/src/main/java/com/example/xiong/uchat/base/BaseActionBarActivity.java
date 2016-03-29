@@ -29,6 +29,10 @@ public class BaseActionBarActivity extends FragmentActivity {
 
     private TextView title;
 
+    private Toast toast;
+    private TextView textViewToast;
+    private View view;
+
     private RelativeLayout relativeLayoutRightText;
     protected TextView tvRight;
 
@@ -41,6 +45,13 @@ public class BaseActionBarActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.action_bar_layout);
+
+        //toast 布局
+        toast = new Toast(getApplicationContext());
+        view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.toast_view, null);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        textViewToast = (TextView) view.findViewById(R.id.txt_toast);
+
         parent = (ViewGroup) findViewById(R.id.title_activity_parent);
         basetitle = (RelativeLayout) findViewById(R.id.base_title);
         basetitle.setBackgroundResource(R.color.qq_blue);
@@ -236,6 +247,12 @@ public class BaseActionBarActivity extends FragmentActivity {
             }
         }
         return false;
+    }
+
+    protected void showToastMes(String s) {
+        textViewToast.setText(s);
+        toast.setView(view);
+        toast.show();
     }
 
 }

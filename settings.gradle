@@ -1,1 +1,1 @@
-include ':app', ':draglayoutlib'
+include ':app', ':draglayoutlib', ':contextmenu'

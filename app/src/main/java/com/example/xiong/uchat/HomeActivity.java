@@ -1,8 +1,13 @@
 package com.example.xiong.uchat;
 
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -11,12 +16,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.widget.Toast;
 
 import com.bluemor.reddotface.util.Util;
 import com.bluemor.reddotface.view.DragLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.nineoldandroids.view.ViewHelper;
+import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
+import com.yalantis.contextmenu.lib.MenuObject;
+import com.yalantis.contextmenu.lib.MenuParams;
+import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
+import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +34,8 @@ import java.util.List;
 /**
  * Created by xiong on 2016/3/28.
  */
-public class HomeActivity extends HomeTabActivity {
+public class HomeActivity extends HomeTabActivity implements OnMenuItemClickListener,
+        OnMenuItemLongClickListener {
 
 
     //主界面里面的变量
@@ -44,6 +55,9 @@ public class HomeActivity extends HomeTabActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private FragmentManager fragmentManager;
+    private DialogFragment mMenuDialogFragment;
+
 
     //draglayout 里面的变量
 
@@ -54,8 +68,9 @@ public class HomeActivity extends HomeTabActivity {
         super.onCreate(savedInstance);
         setActionBarVisibility(View.GONE);
         init();          //初始化主界面数据
-
         initDrag();    //初始化draglayout里面的数据
+        fragmentManager = getSupportFragmentManager();
+        initMenuFragment();
 
     }
 
@@ -68,7 +83,8 @@ public class HomeActivity extends HomeTabActivity {
         relativeLayoutLeftArea = (RelativeLayout) findViewById(R.id.action_bar_relativelayout_left);
         imageViewAvatar = (SimpleDraweeView) findViewById(R.id.avatar);
         relativeLayoutRightImg = (RelativeLayout) findViewById(R.id.action_bar_relativelayout_right_image);
-        imgRightIcon = (ImageView) findViewById(R.id.img_actionbar_righticon);
+        imgRightIcon = (ImageView) findViewById(R.id.img_actionbar_right);
+
         relativeLayoutRightText = (RelativeLayout) findViewById(R.id.action_bar_relativelayout_right_text);
         tvRight = (TextView) findViewById(R.id.textview_actionbar_right);
         int resIdTextColor = R.color.font_white;
@@ -109,6 +125,14 @@ public class HomeActivity extends HomeTabActivity {
             case 0:
                 title.setText("消息");
                 setRightIcon(R.drawable.message_fragment_position_right);
+                imgRightIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (fragmentManager.findFragmentByTag(ContextMenuDialogFragment.TAG) == null) {
+                            mMenuDialogFragment.show(fragmentManager, ContextMenuDialogFragment.TAG);
+                        }
+                    }
+                });
                 break;
             case 1:
                 title.setText("联系人");
@@ -170,5 +194,74 @@ public class HomeActivity extends HomeTabActivity {
 
     private void shake() {
         imageViewAvatar.startAnimation(AnimationUtils.loadAnimation(this, com.bluemor.reddotface.R.anim.shake));
+    }
+
+
+    private void initMenuFragment() {
+        MenuParams menuParams = new MenuParams();
+        menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.action_bar_height));
+        menuParams.setMenuObjects(getMenuObjects());
+        menuParams.setClosableOutside(false);
+        mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
+    }
+
+    private List<MenuObject> getMenuObjects() {
+        // You can use any [resource, bitmap, drawable, color] as image:
+        // item.setResource(...)
+        // item.setBitmap(...)
+        // item.setDrawable(...)
+        // item.setColor(...)
+        // You can set image ScaleType:
+        // item.setScaleType(ScaleType.FIT_XY)
+        // You can use any [resource, drawable, color] as background:
+        // item.setBgResource(...)
+        // item.setBgDrawable(...)
+        // item.setBgColor(...)
+        // You can use any [color] as text color:
+        // item.setTextColor(...)
+        // You can set any [color] as divider color:
+        // item.setDividerColor(...)
+
+        List<MenuObject> menuObjects = new ArrayList<>();
+
+        MenuObject close = new MenuObject();
+        close.setResource(R.drawable.icn_close);
+
+        MenuObject send = new MenuObject("创建讨论组");
+        send.setResource(R.drawable.icn_1);
+        send.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        MenuObject addFr = new MenuObject("加好友");
+        BitmapDrawable bd = new BitmapDrawable(getResources(),
+                BitmapFactory.decodeResource(getResources(), R.drawable.icn_3));
+        addFr.setDrawable(bd);
+
+        MenuObject addFav = new MenuObject("我的收藏");
+        addFav.setResource(R.drawable.icn_4);
+
+        menuObjects.add(close);
+        menuObjects.add(send);
+        menuObjects.add(addFr);
+        menuObjects.add(addFav);
+        return menuObjects;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mMenuDialogFragment != null && mMenuDialogFragment.isAdded()) {
+            mMenuDialogFragment.dismiss();
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void onMenuItemClick(View clickedView, int position) {
+        //Toast.makeText(this, "Clicked on position: " + position, Toast.LENGTH_SHORT).show();
+        showToastMes("Clicked on position: " + position);
+    }
+
+    @Override
+    public void onMenuItemLongClick(View clickedView, int position) {
+        Toast.makeText(this, "Long clicked on position: " + position, Toast.LENGTH_SHORT).show();
     }
 }
