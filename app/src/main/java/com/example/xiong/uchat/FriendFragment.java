@@ -24,6 +24,8 @@ public class FriendFragment extends Fragment {
     private int expandFlag = -1;//控制列表的展开
     private PinnedHeaderExpandableAdapter adapter;
 
+    private FriendFragment.MyClickListener myClickListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class FriendFragment extends Fragment {
     }
 
     private void initview() {
+//        myClickListener = new MyClickListener();
         explistview = (PinnedHeaderExpandableListView) contentView.findViewById(R.id.explistview);
     }
 
@@ -52,7 +55,12 @@ public class FriendFragment extends Fragment {
             }
         }
         //设置悬浮头部VIEW
-        explistview.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.friend_head_view, null));
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.friend_head_view, null);
+        explistview.addHeaderView(view);
+        view.findViewById(R.id.layout_news_haoyoudongtai).setOnClickListener(myClickListener);
+        view.findViewById(R.id.layout_news_fujin).setOnClickListener(myClickListener);
+        view.findViewById(R.id.layout_news_xingqubuluo).setOnClickListener(myClickListener);
+        view.findViewById(R.id.search_header).setOnClickListener(myClickListener);
         explistview.setHeaderView(View.inflate(getContext(), R.layout.group, null));
         adapter = new PinnedHeaderExpandableAdapter(childrenData, groupData, getContext(), explistview);
         explistview.setAdapter(adapter);
@@ -91,6 +99,28 @@ public class FriendFragment extends Fragment {
                 expandFlag = groupPosition;
             }
             return true;
+        }
+    }
+
+    class MyClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.layout_news_xingqubuluo:
+
+                    break;
+                case R.id.layout_news_fujin:
+
+                    break;
+                case R.id.layout_news_haoyoudongtai:
+
+                    break;
+                case R.id.search_header:
+
+                    break;
+
+            }
         }
     }
 

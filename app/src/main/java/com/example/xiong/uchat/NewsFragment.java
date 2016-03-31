@@ -1,5 +1,6 @@
 package com.example.xiong.uchat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 /**
  * Created by xiong on 2016/3/28.
@@ -51,7 +51,8 @@ public class NewsFragment extends Fragment {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.layout_news_haoyoudongtai:
-                    Toast.makeText(getContext(), "sssssssssss", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getActivity(), MyQzoneActivity.class));
+                    break;
             }
         }
     }
