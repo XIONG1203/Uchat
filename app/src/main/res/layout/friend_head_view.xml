@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.xiong.uchat.customview.ElasticScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/background_gray"
     android:orientation="vertical">
 
@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:text="搜索电影/音乐/商品"
+                        android:text="搜索"
                         android:textColor="@color/font_deepgray" />
 
                 </LinearLayout>
@@ -55,11 +55,11 @@
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:background="@drawable/click_state_color"
                 android:id="@+id/layout_news_haoyoudongtai"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="@drawable/click_state_color">
 
                 <LinearLayout
                     android:layout_width="80dp"
@@ -71,24 +71,24 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/haoyoudongtai" />
+                        android:src="@drawable/new_friend" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="好友动态"
+                        android:text="新朋友"
                         android:textColor="@color/font_black" />
                 </LinearLayout>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:background="@drawable/click_state_color"
                 android:id="@+id/layout_news_fujin"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="@drawable/click_state_color">
 
                 <LinearLayout
                     android:layout_width="80dp"
@@ -100,24 +100,24 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/fujin" />
+                        android:src="@drawable/specialcare" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="附近"
+                        android:text="特别关心"
                         android:textColor="@color/font_black" />
                 </LinearLayout>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:background="@drawable/click_state_color"
                 android:id="@+id/layout_news_xingqubuluo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="@drawable/click_state_color">
 
                 <LinearLayout
                     android:layout_width="80dp"
@@ -129,19 +129,23 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/xingqubuluo" />
+                        android:src="@drawable/qunzu" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="兴趣部落"
+                        android:text="群组"
                         android:textColor="@color/font_black" />
                 </LinearLayout>
 
             </RelativeLayout>
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/background_gray" />
 
-</com.example.xiong.uchat.customview.ElasticScrollView>
+    </LinearLayout>
+</LinearLayout>
