@@ -1,9 +1,13 @@
 package com.example.xiong.uchat;
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +24,10 @@ import android.widget.Toast;
 
 import com.bluemor.reddotface.util.Util;
 import com.bluemor.reddotface.view.DragLayout;
+import com.example.xiong.uchat.Util.LogUtil;
+import com.example.xiong.uchat.customview.TakePicOrChoosePicDialog;
+import com.example.xiong.uchat.data.UserInfoPrefCache;
+import com.example.xiong.uchat.data.bean.UserInfoBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.nineoldandroids.view.ViewHelper;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
@@ -37,6 +45,7 @@ import java.util.List;
 public class HomeActivity extends HomeTabActivity implements OnMenuItemClickListener,
         OnMenuItemLongClickListener {
 
+    private Uri uri;
 
     //主界面里面的变量
     private List<Fragment> list;
@@ -62,6 +71,7 @@ public class HomeActivity extends HomeTabActivity implements OnMenuItemClickList
     //draglayout 里面的变量
 
     private ListView listViewDrag;
+    private TextView textViewMail;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -90,7 +100,7 @@ public class HomeActivity extends HomeTabActivity implements OnMenuItemClickList
         int resIdTextColor = R.color.font_white;
         setTitleTextColor(resIdTextColor);
         imageViewAvatar.setVisibility(View.VISIBLE);
-        imageViewAvatar.setImageURI(Uri.parse("res:///" + R.drawable.avatar));
+        imageViewAvatar.setImageURI(Uri.parse(UserInfoPrefCache.getUserInfo(getApplicationContext(), "avatarPath")));
         imageViewAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -161,9 +171,15 @@ public class HomeActivity extends HomeTabActivity implements OnMenuItemClickList
     private void initDrag() {
         //初始化draglayout里面的数据
 
+        textViewMail = (TextView) findViewById(R.id.tv_mail);
         dragAvatar = (SimpleDraweeView) findViewById(R.id.iv_drag_avatar);
-        dragAvatar.setImageURI(Uri.parse("res:///" + R.drawable.avatar));
-
+        dragAvatar.setImageURI(Uri.parse(UserInfoPrefCache.getUserInfo(getApplicationContext(), "avatarPath")));
+        dragAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TakePicOrChoosePicDialog.dialog(HomeActivity.this, HomeActivity.this, false);
+            }
+        });
         listViewDrag = (ListView) findViewById(com.bluemor.reddotface.R.id.lv);
         listViewDrag.setAdapter(new ArrayAdapter<String>(HomeActivity.this,
                 com.bluemor.reddotface.R.layout.item_text, new String[]{"我的超级会员", "QQ钱包",
@@ -174,6 +190,14 @@ public class HomeActivity extends HomeTabActivity implements OnMenuItemClickList
             public void onItemClick(AdapterView<?> arg0, View arg1,
                                     int position, long arg3) {
                 Util.t(getApplicationContext(), "click " + position);
+            }
+        });
+
+        textViewMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserInfoPrefCache.clearPersonalInfo(getApplicationContext());
+                finish();
             }
         });
     }
@@ -264,4 +288,96 @@ public class HomeActivity extends HomeTabActivity implements OnMenuItemClickList
     public void onMenuItemLongClick(View clickedView, int position) {
         Toast.makeText(this, "Long clicked on position: " + position, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if (requestCode == 1) {
+            //paizhao
+            if (resultCode == RESULT_OK) {
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                intent.setDataAndType(TakePicOrChoosePicDialog.imageUri2, "image/*");
+                intent.putExtra("scale", true);
+                intent.putExtra("aspectX", 3);
+                intent.putExtra("aspectY", 3);
+                intent.putExtra("return-data", false);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, TakePicOrChoosePicDialog.imageUri);
+                startActivityForResult(intent, 3);
+            } else {
+//                Toast.makeText(EditPictureActivity.this,"aa",Toast.LENGTH_SHORT).show();
+                //finish();
+            }
+        } else if (requestCode == 2) {
+            try {
+                uri = data.getData();
+            } catch (Exception e) {
+                //finish();
+                return;
+            }
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            intent.setDataAndType(uri, "image/*");
+            intent.putExtra("scale", true);
+            intent.putExtra("aspectX", 3);
+            intent.putExtra("aspectY", 3);
+            intent.putExtra("return-data", false);
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, TakePicOrChoosePicDialog.imageUri);
+            startActivityForResult(intent, 3);
+
+        } else if (requestCode == 3) {
+            LogUtil.m("设置头像");
+            if (data == null) {
+                LogUtil.m("data为空");
+                return;
+            } else {
+                LogUtil.m("datano空");
+            }
+            LogUtil.m("头像数据不空");
+            if (TakePicOrChoosePicDialog.imageUri == null) {
+                LogUtil.m("imageUrikong");
+            } else {
+                LogUtil.m("TakePicOrChoosePicDialog.imageUri " + TakePicOrChoosePicDialog.imageUri.toString());
+            }
+            try {
+                Uri uri = Uri.parse(getRealFilePath(TakePicOrChoosePicDialog.imageUri));
+                LogUtil.m(TakePicOrChoosePicDialog.imageUri + "=--==");
+                LogUtil.m(uri + "=--==");
+                dragAvatar.setImageURI(TakePicOrChoosePicDialog.imageUri);
+                imageViewAvatar.setImageURI(TakePicOrChoosePicDialog.imageUri);
+                UserInfoBean userInfoBean = getDbManager().findById(UserInfoBean.class, UserInfoPrefCache.getUserInfo(getApplicationContext(), "userid"));
+                userInfoBean.setAvatarPath(TakePicOrChoosePicDialog.imageUri.toString());
+                getDbManager().update(userInfoBean);
+            } catch (Exception e) {
+                LogUtil.m("有错");
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public String getRealFilePath(final Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null)
+            data = uri.getPath();
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
+
 }

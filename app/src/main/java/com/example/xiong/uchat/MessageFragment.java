@@ -1,5 +1,6 @@
 package com.example.xiong.uchat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -40,13 +41,13 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private DialogFragment mMenuDialogFragment;
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            switch (msg.what) {
-                case REFRESH_COMPLETE:
-                    mMessageListAdapter.addAll(messageListItemBeanArrayList);
-                    mMessageListAdapter.notifyDataSetChanged();
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    break;
-            }
+//            switch (msg.what) {
+//                case REFRESH_COMPLETE:
+//                    mMessageListAdapter.addAll(messageListItemBeanArrayList);
+//                    mMessageListAdapter.notifyDataSetChanged();
+//                    mSwipeRefreshLayout.setRefreshing(false);
+//                    break;
+//            }
         }
     };
 
@@ -67,12 +68,12 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private void init() {
         messageListItemBeanArrayList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             MessageListItemBean messageListItemBean = new MessageListItemBean();
             messageListItemBean.setName("熊嘉琛帅哥___" + i);
             messageListItemBean.setTempContent("吃了没有" + i * 3);
             messageListItemBean.setTime("12:1" + i);
-            messageListItemBean.setPath("res:///" + R.drawable.avatar_kin);
+            messageListItemBean.setPath("res:///" + R.drawable.quntouxiang);
             messageListItemBeanArrayList.add(messageListItemBean);
         }
 
@@ -88,6 +89,7 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
+
     }
 
     private void initListener() {
@@ -100,7 +102,8 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getContext(), i + "", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), ChatUIActivity.class));
+                getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
             }
         });
     }

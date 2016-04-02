@@ -40,8 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="1127354683@qq.com"
-            android:textColor="#ffffff"
+            android:text="退出登录"
+            android:textColor="@color/background_pink_deep"
             android:textSize="15sp" />
 
         <ListView

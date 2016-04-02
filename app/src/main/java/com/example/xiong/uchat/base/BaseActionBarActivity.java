@@ -16,7 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xiong.uchat.R;
-import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.xutils.DbManager;
 
 /**
  * actionbar 主题样式设置
@@ -37,14 +38,18 @@ public class BaseActionBarActivity extends FragmentActivity {
     protected TextView tvRight;
 
     private RelativeLayout relativeLayoutLeftArea;
-    private SimpleDraweeView imgGoBack;
+    private ImageView imgGoBack;
     private RelativeLayout relativeLayoutRightImg;
     private ImageView imgRightIcon;
+
+    private DbManager dbManager;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.action_bar_layout);
+
+        dbManager = new DataBaseInit(getApplication()).getDb();
 
         //toast 布局
         toast = new Toast(getApplicationContext());
@@ -57,7 +62,7 @@ public class BaseActionBarActivity extends FragmentActivity {
         basetitle.setBackgroundResource(R.color.qq_blue);
         title = (TextView) findViewById(R.id.textview_actionbar_title);
         relativeLayoutLeftArea = (RelativeLayout) findViewById(R.id.action_bar_relativelayout_left_area);
-        imgGoBack = (SimpleDraweeView) findViewById(R.id.img_actionbar_goback);
+        imgGoBack = (ImageView) findViewById(R.id.img_actionbar_goback);
         relativeLayoutRightImg = (RelativeLayout) findViewById(R.id.action_bar_relativelayout_right_area_image);
         imgRightIcon = (ImageView) findViewById(R.id.img_actionbar_righticon);
         relativeLayoutRightText = (RelativeLayout) findViewById(R.id.action_bar_relativelayout_right_area_text);
@@ -72,6 +77,7 @@ public class BaseActionBarActivity extends FragmentActivity {
         setTitleTextColor(resIdTextColor);
         imgGoBack.setVisibility(View.VISIBLE);
         imgRightIcon.setVisibility(View.INVISIBLE);
+        setImgLeftIcon(R.drawable.back_icon);
 
         //检测网络状态
         if (isNetworkAvailable(BaseActionBarActivity.this)) {
@@ -185,7 +191,7 @@ public class BaseActionBarActivity extends FragmentActivity {
         this.tvRight.setText(resId);
     }
 
-    public SimpleDraweeView getImgGoBack() {
+    public ImageView getImgGoBack() {
         return imgGoBack;
     }
 
@@ -247,6 +253,13 @@ public class BaseActionBarActivity extends FragmentActivity {
             }
         }
         return false;
+    }
+
+    protected DbManager getDbManager() {
+        if (dbManager == null) {
+            dbManager = new DataBaseInit(getApplication()).getDb();
+        }
+        return dbManager;
     }
 
     protected void showToastMes(String s) {
