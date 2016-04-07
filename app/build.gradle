@@ -25,4 +25,6 @@ dependencies {
     compile project(':draglayoutlib')
     compile project(':contextmenu')
     compile 'org.xutils:xutils:3.3.18'
+    compile 'com.mcxiaoke.volley:library:1.0.+'
+    compile 'com.alibaba:fastjson:1.1.46.android'
 }

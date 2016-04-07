@@ -5,8 +5,8 @@ package com.example.xiong.uchat.Util;
  */
 public class CommonParameter {
 
-    public static String URL = "http://jkheart.com:80";
-    //public static String URL = "http://192.168.2.237";
+    //public static String URL = "http://192.168.1.104";
+    public static String URL = "192.168.1.104";
     public static String CACHE_FOLDER_PATH = "/Android/data/org.dreamfly.architecture/";
 
     public static String STATE_LOGIN = "login";

@@ -41,13 +41,13 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private DialogFragment mMenuDialogFragment;
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
-//            switch (msg.what) {
-//                case REFRESH_COMPLETE:
-//                    mMessageListAdapter.addAll(messageListItemBeanArrayList);
-//                    mMessageListAdapter.notifyDataSetChanged();
-//                    mSwipeRefreshLayout.setRefreshing(false);
-//                    break;
-//            }
+            switch (msg.what) {
+                case REFRESH_COMPLETE:
+                    mMessageListAdapter.addAll(messageListItemBeanArrayList);
+                    mMessageListAdapter.notifyDataSetChanged();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    break;
+            }
         }
     };
 
