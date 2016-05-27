@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.xiong.uchat.adapter.MessageListAdapter;
 import com.example.xiong.uchat.bean.MessageListItemBean;
+import com.example.xiong.uchat.customview.DeleteListView;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
 
@@ -27,12 +28,12 @@ import java.util.ArrayList;
  * Created by xiong on 2016/3/28.
  */
 public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnMenuItemClickListener,
-        OnMenuItemLongClickListener {
+        OnMenuItemLongClickListener, DeleteListView.SubViewClickListener {
 
     private final int REFRESH_COMPLETE = 0x11;
     private View contentView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ListView mListView;
+    private DeleteListView mListView;
     private MessageListAdapter mMessageListAdapter;
     private ArrayList<MessageListItemBean> messageListItemBeanArrayList;
 
@@ -82,13 +83,14 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         relativeLayoutHeader = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.search_input, null);
         mSwipeRefreshLayout = (SwipeRefreshLayout) contentView.findViewById(R.id.swipe_message);
-        mListView = (ListView) contentView.findViewById(R.id.listview_message);
+        mListView = (DeleteListView) contentView.findViewById(R.id.listview_message);
         mListView.setFadingEdgeLength(0);
         mListView.addHeaderView(relativeLayoutHeader);
         mListView.setAdapter(mMessageListAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
+
 
     }
 
@@ -125,5 +127,11 @@ public class MessageFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public void onMenuItemLongClick(View clickedView, int position) {
 
+    }
+
+    @Override
+    public void subClick(int position) {
+        messageListItemBeanArrayList.remove(position);
+        mMessageListAdapter.notifyDataSetChanged();
     }
 }

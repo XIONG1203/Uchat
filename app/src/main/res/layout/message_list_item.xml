@@ -44,4 +44,24 @@
         android:layout_height="1dp"
         android:background="@color/background_gray"
         android:layout_alignParentBottom="true"/>
+
+    <RelativeLayout
+        android:id="@+id/deledt_item"
+        android:background="#f16257"
+        android:layout_marginRight="-80dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="80dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="删除"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </RelativeLayout>
+
 </RelativeLayout>
