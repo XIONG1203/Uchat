@@ -52,7 +52,7 @@ public class WelcomeActivity extends BaseActionBarActivity {
     }
 
     private void initUser() {
-        user = new String[]{"xiongjiachen", "liuwei", "luoyun", "liuyue", "110"};
+        user = new String[]{"xiongjiachen"};
         for (int i = 0; i < user.length; i++) {
             UserInfoBean userInfoBean = new UserInfoBean();
             userInfoBean.setId(user[i]);
